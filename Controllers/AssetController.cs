@@ -7,27 +7,27 @@ namespace AssetwiseApi.Controllers;
 
     [Route("api/[controller]")]
     [ApiController]
-    public class SitesController : ControllerBase
+    public class AssetController : ControllerBase
     {
         private readonly AWContext _context;
 
-        public SitesController(AWContext context)
+        public AssetController(AWContext context)
         {
             _context = context;
         }
 
-        // GET: api/Sites
+        // GET: api/Assets
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Site>>> GetSites()
+        public async Task<ActionResult<IEnumerable<Asset>>> GetAssets()
         {
-            return await _context.Sites.ToListAsync();
+            return await _context.Assets.ToListAsync();
         }
 
-        // GET: api/Sites/5
+        // GET: api/Assets/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Site>> GetSite(int id)
+        public async Task<ActionResult<Asset>> GetAsset(int id)
         {
-            var product = await _context.Sites.FindAsync(id);
+            var product = await _context.Assets.FindAsync(id);
 
             if (product == null)
             {
@@ -37,10 +37,10 @@ namespace AssetwiseApi.Controllers;
             return product;
         }
 
-        // PUT: api/Sites/5
+        // PUT: api/Assets/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSite(int id, Site product)
+        public async Task<IActionResult> PutAsset(int id, Asset product)
         {
             if (id != product.Id)
             {
@@ -55,7 +55,7 @@ namespace AssetwiseApi.Controllers;
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SiteExists(id))
+                if (!AssetExists(id))
                 {
                     return NotFound();
                 }
@@ -68,44 +68,44 @@ namespace AssetwiseApi.Controllers;
             return NoContent();
         }
 
-        // POST: api/Sites
+        // POST: api/Assets
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Site>> PostSite(Site product)
+        public async Task<ActionResult<Asset>> PostAsset(Asset product)
         {
-            _context.Sites.Add(product);
+            _context.Assets.Add(product);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetSite", new { id = product.Id }, product);
+            return CreatedAtAction("GetAsset", new { id = product.Id }, product);
         }
 
-        // DELETE: api/Sites/5
+        // DELETE: api/Assets/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSite(int id)
+        public async Task<IActionResult> DeleteAsset(int id)
         {
-            var product = await _context.Sites.FindAsync(id);
+            var product = await _context.Assets.FindAsync(id);
             if (product == null)
             {
                 return NotFound();
             }
 
-            _context.Sites.Remove(product);
+            _context.Assets.Remove(product);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool SiteExists(int id)
+        private bool AssetExists(int id)
         {
-            return _context.Sites.Any(e => e.Id == id);
+            return _context.Assets.Any(e => e.Id == id);
         }
 
         //loading related data
-        [HttpGet("GetSupplierFromSiteName")]
-        public async Task<Site?> GetSiteName(string? productName)
+        [HttpGet("GetSupplierFromAssetName")]
+        public async Task<Asset?> GetAssetName(string? productName)
         {
-            return await _context.Sites
-                .Include(p => p.Users)
+            return await _context.Assets
+                .Include(p => p.ServiceHistory)
                 // .Where(p => p. == productName)
                 .FirstOrDefaultAsync();
         }

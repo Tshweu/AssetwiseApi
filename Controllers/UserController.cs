@@ -35,23 +35,7 @@ public class UserController : ControllerBase {
     {
         return _userManager.FindByIdAsync(id);
     }
-
-    // [HttpPost("create")]
-    // public async Task<IActionResult> Post(User newUser){
-    //     // await _userManager.Users.Add(newUser);
-    //     // await _userManager.Users.SaveChanges();
-    //     return CreatedAtAction(nameof(Get),new {id = newUser.Id },newUser);
-    // }
-
-    // [HttpPost("createEmail")]
-    // public async Task<IActionResult> PostEmail(){
-    //     //Service to send email
-    //     //remove cast
-    //     return (IActionResult)_emailService.SendEmailAsync();
-    //     // return ;
-    //     // return CreatedAtAction(nameof(Get),);
-    // }
-
+    
     [HttpPatch("update/{id}")]
     public async Task<IActionResult> Put(int id,JsonPatchDocument<User> patchDoc){
         // var user = await _userManager.GetAsync(id);

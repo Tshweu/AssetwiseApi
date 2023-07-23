@@ -7,27 +7,27 @@ namespace AssetwiseApi.Controllers;
 
     [Route("api/[controller]")]
     [ApiController]
-    public class SitesController : ControllerBase
+    public class ServiceController : ControllerBase
     {
         private readonly AWContext _context;
 
-        public SitesController(AWContext context)
+        public ServiceController(AWContext context)
         {
             _context = context;
         }
 
-        // GET: api/Sites
+        // GET: api/Service
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Site>>> GetSites()
+        public async Task<ActionResult<IEnumerable<Service>>> GetService()
         {
-            return await _context.Sites.ToListAsync();
+            return await _context.Services.ToListAsync();
         }
 
-        // GET: api/Sites/5
+        // GET: api/Service/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Site>> GetSite(int id)
+        public async Task<ActionResult<Service>> GetService(int id)
         {
-            var product = await _context.Sites.FindAsync(id);
+            var product = await _context.Services.FindAsync(id);
 
             if (product == null)
             {
@@ -37,10 +37,10 @@ namespace AssetwiseApi.Controllers;
             return product;
         }
 
-        // PUT: api/Sites/5
+        // PUT: api/Service/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSite(int id, Site product)
+        public async Task<IActionResult> PutService(int id, Service product)
         {
             if (id != product.Id)
             {
@@ -55,7 +55,7 @@ namespace AssetwiseApi.Controllers;
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SiteExists(id))
+                if (!ServiceExists(id))
                 {
                     return NotFound();
                 }
@@ -68,44 +68,44 @@ namespace AssetwiseApi.Controllers;
             return NoContent();
         }
 
-        // POST: api/Sites
+        // POST: api/Service
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Site>> PostSite(Site product)
+        public async Task<ActionResult<Service>> PostService(Service product)
         {
-            _context.Sites.Add(product);
+            _context.Services.Add(product);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetSite", new { id = product.Id }, product);
+            return CreatedAtAction("GetService", new { id = product.Id }, product);
         }
 
-        // DELETE: api/Sites/5
+        // DELETE: api/Service/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSite(int id)
+        public async Task<IActionResult> DeleteService(int id)
         {
-            var product = await _context.Sites.FindAsync(id);
+            var product = await _context.Services.FindAsync(id);
             if (product == null)
             {
                 return NotFound();
             }
 
-            _context.Sites.Remove(product);
+            _context.Services.Remove(product);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool SiteExists(int id)
+        private bool ServiceExists(int id)
         {
-            return _context.Sites.Any(e => e.Id == id);
+            return _context.Services.Any(e => e.Id == id);
         }
 
         //loading related data
-        [HttpGet("GetSupplierFromSiteName")]
-        public async Task<Site?> GetSiteName(string? productName)
+        [HttpGet("GetSupplierFromServiceName")]
+        public async Task<Service?> GetServiceName(string? productName)
         {
-            return await _context.Sites
-                .Include(p => p.Users)
+            return await _context.Services
+                .Include(p => p.Comments)
                 // .Where(p => p. == productName)
                 .FirstOrDefaultAsync();
         }

@@ -20,5 +20,5 @@ public class Company{
     public List<Site> Sites { get; set; }
     public List<ServiceReminder> ServiceReminders { get; set; }
     public List<Service> Services { get; set; }
-
+    public string DbUrl { get; set; }
 }
