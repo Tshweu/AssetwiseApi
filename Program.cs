@@ -16,8 +16,9 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddDbContext<AWContext>((serviceProvider, dbContextOptions) =>
 {
     var httpContextAccessor = serviceProvider.GetRequiredService<IHttpContextAccessor>();
+    //add 
     var dbName = httpContextAccessor?.HttpContext?.Request.Headers["BUID"].First();
-    var dbString = "NS";
+    var dbString = "";
     switch (dbName){
         case "NS":
             dbString = "NS";
