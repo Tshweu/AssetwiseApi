@@ -27,14 +27,14 @@ namespace AssetwiseApi.Controllers;
         [HttpGet("{id}")]
         public async Task<ActionResult<Service>> GetService(int id)
         {
-            var product = await _context.Services.FindAsync(id);
+            var service = await _context.Services.FindAsync(id);
 
-            if (product == null)
+            if (service == null)
             {
                 return NotFound();
             }
 
-            return product;
+            return service;
         }
 
         // PUT: api/Service/5
