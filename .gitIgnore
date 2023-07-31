@@ -1,4 +1,9 @@
 /bin
 .vscode
+.vs
 /obj
 Resources
+/AssetwiseApi.UnitTests/bin
+/AssetwiseApi.UnitTests/obj
+/AssetwiseApi.IntegrationTests/bin
+/AssetwiseApi.IntegrationTests/obj
